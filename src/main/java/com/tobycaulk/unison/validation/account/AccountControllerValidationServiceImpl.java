@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 import com.tobycaulk.unison.error.UError;
 import com.tobycaulk.unison.error.UException;
 import com.tobycaulk.unison.request.account.AccountCreateRequest;
+import com.tobycaulk.unison.request.account.AccountLoginRequest;
 import com.tobycaulk.unison.response.account.AccountCreateResponse;
+import com.tobycaulk.unison.response.account.AccountLoginResponse;
 import com.tobycaulk.unison.util.Util;
 
 @Service
@@ -20,5 +22,22 @@ public class AccountControllerValidationServiceImpl implements AccountController
 
 	@Override
 	public void validateAccountCreateResponse(AccountCreateResponse response) throws UException {
+		if(response.getAccountCreateResponseCode() == null) {
+			throw new UException(UError.INVALID_RESPONSE);
+		}
+	}
+
+	@Override
+	public void validateAccountLoginRequest(AccountLoginRequest request) throws UException {
+		if(!Util.validateStringsInArray(true, request.getEmail(), request.getPassword())) {
+			throw new UException(UError.INVALID_REQUEST);
+		}
+	}
+
+	@Override
+	public void validateAccountLoginResponse(AccountLoginResponse response) throws UException {
+		if(!Util.validateStringsInArray(true, response.getAccountSessionId())) {
+			throw new UException(UError.INVALID_RESPONSE);
+		}
 	}
 }

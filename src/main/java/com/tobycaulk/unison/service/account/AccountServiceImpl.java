@@ -9,9 +9,12 @@ import org.springframework.stereotype.Service;
 import com.tobycaulk.unison.da.mongo.account.model.AccountMongoModel;
 import com.tobycaulk.unison.da.mongo.account.repository.AccountRepository;
 import com.tobycaulk.unison.error.UException;
+import com.tobycaulk.unison.model.account.AccountSession;
 import com.tobycaulk.unison.request.account.AccountCreateRequest;
+import com.tobycaulk.unison.request.account.AccountLoginRequest;
 import com.tobycaulk.unison.response.account.AccountCreateResponse;
 import com.tobycaulk.unison.response.account.AccountCreateResponse.AccountCreateResponseCode;
+import com.tobycaulk.unison.response.account.AccountLoginResponse;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -43,6 +46,27 @@ public class AccountServiceImpl implements AccountService {
 		}
 		
 		response = new AccountCreateResponse(createStatus, accountCreateResponseCode);
+		
+		return response;
+	}
+
+	@Override
+	public AccountLoginResponse accountLogin(AccountLoginRequest request) throws UException {
+		AccountLoginResponse response = null;
+		
+		String accountSessionId = "";
+
+		AccountMongoModel accountModel = accountRepository.findByEmail(request.getEmail());
+		if(accountModel != null) {
+			if(BCrypt.checkpw(request.getPassword(), accountModel.getPassword())) {
+				accountSessionId = UUID.randomUUID().toString();
+				AccountSession accountSession = new AccountSession(accountSessionId);
+				accountModel.addSession(accountSession);
+				accountRepository.save(accountModel);
+			}
+		}
+
+		response = new AccountLoginResponse(accountSessionId);
 		
 		return response;
 	}

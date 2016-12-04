@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tobycaulk.unison.error.UError;
 import com.tobycaulk.unison.error.UException;
 import com.tobycaulk.unison.request.account.AccountCreateRequest;
+import com.tobycaulk.unison.request.account.AccountLoginRequest;
 import com.tobycaulk.unison.response.BaseResponse;
 import com.tobycaulk.unison.response.GenericErrorResponse;
 import com.tobycaulk.unison.response.account.AccountCreateResponse;
+import com.tobycaulk.unison.response.account.AccountLoginResponse;
 import com.tobycaulk.unison.service.account.AccountServiceImpl;
 import com.tobycaulk.unison.validation.account.AccountControllerValidationServiceImpl;
 
@@ -36,6 +38,23 @@ public class AccountController {
 			response = accountService.accountCreate(request);
 			controllerValidationService.validateAccountCreateResponse((AccountCreateResponse) response);
 		} catch(UException e) { 
+			response = new GenericErrorResponse(e.getError());
+		} catch(Exception e) {
+			response = new GenericErrorResponse(UError.UNHANDLED_EXCEPTION);
+		}
+		
+		return response;
+	}
+	
+	@RequestMapping(value="/Login", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody BaseResponse login(@RequestBody AccountLoginRequest request) {
+		BaseResponse response = null;
+		
+		try {
+			controllerValidationService.validateAccountLoginRequest(request);
+			response = accountService.accountLogin(request);
+			controllerValidationService.validateAccountLoginResponse((AccountLoginResponse) response);
+		} catch(UException e) {
 			response = new GenericErrorResponse(e.getError());
 		} catch(Exception e) {
 			response = new GenericErrorResponse(UError.UNHANDLED_EXCEPTION);
