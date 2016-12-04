@@ -5,6 +5,7 @@ public class UError {
 	public static final UError NO_ERROR = new UError(UErrorCode.NO_ERROR);
 	public static final UError INVALID_REQUEST = new UError(UErrorCode.INVALID_REQUEST);
 	public static final UError INVALID_RESPONSE = new UError(UErrorCode.INVALID_RESPONSE);
+	public static final UError UNHANDLED_EXCEPTION = new UError(UErrorCode.UNHANDLED_EXCEPTION);
 	
 	private UErrorCode errorCode;
 	

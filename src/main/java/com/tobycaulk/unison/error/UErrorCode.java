@@ -4,7 +4,8 @@ public enum UErrorCode {
 
 	NO_ERROR(0, ""),
 	INVALID_REQUEST(1, "Invalid request"),
-	INVALID_RESPONSE(2, "Invalid response");
+	INVALID_RESPONSE(2, "Invalid response"),
+	UNHANDLED_EXCEPTION(3, "Unhandled exception");
 	
 	private int code;
 	private String message;

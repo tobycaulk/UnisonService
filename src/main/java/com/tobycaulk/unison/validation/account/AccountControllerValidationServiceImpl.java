@@ -1,11 +1,14 @@
 package com.tobycaulk.unison.validation.account;
 
+import org.springframework.stereotype.Service;
+
 import com.tobycaulk.unison.error.UError;
 import com.tobycaulk.unison.error.UException;
 import com.tobycaulk.unison.request.account.AccountCreateRequest;
 import com.tobycaulk.unison.response.account.AccountCreateResponse;
 import com.tobycaulk.unison.util.Util;
 
+@Service
 public class AccountControllerValidationServiceImpl implements AccountControllerValidationService {
 
 	@Override
