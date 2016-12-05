@@ -26,4 +26,5 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
    	compile group: 'org.mindrot', name: 'jbcrypt', version: '0.3m'
     compile group: 'commons-lang',              name: 'commons-lang',               version: '2.6'
+    compile group: 'org.apache.tika', name: 'tika-core', version: '1.14'
 }
