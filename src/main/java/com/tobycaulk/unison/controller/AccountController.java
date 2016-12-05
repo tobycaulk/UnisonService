@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tobycaulk.unison.error.UError;
 import com.tobycaulk.unison.error.UException;
+import com.tobycaulk.unison.request.account.AccountCreateArtistRequest;
 import com.tobycaulk.unison.request.account.AccountCreateRequest;
 import com.tobycaulk.unison.request.account.AccountLoginRequest;
 import com.tobycaulk.unison.response.BaseResponse;
 import com.tobycaulk.unison.response.GenericErrorResponse;
+import com.tobycaulk.unison.response.account.AccountCreateArtistResponse;
 import com.tobycaulk.unison.response.account.AccountCreateResponse;
 import com.tobycaulk.unison.response.account.AccountLoginResponse;
 import com.tobycaulk.unison.service.account.AccountServiceImpl;
@@ -37,6 +39,23 @@ public class AccountController {
 			controllerValidationService.validateAccountCreateRequest(request);
 			response = accountService.accountCreate(request);
 			controllerValidationService.validateAccountCreateResponse((AccountCreateResponse) response);
+		} catch(UException e) { 
+			response = new GenericErrorResponse(e.getError());
+		} catch(Exception e) {
+			response = new GenericErrorResponse(UError.UNHANDLED_EXCEPTION);
+		}
+		
+		return response;
+	}
+	
+	@RequestMapping(value="/CreateArtist", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody BaseResponse createArtist(@RequestBody AccountCreateArtistRequest request) {
+		BaseResponse response = null;
+		
+		try {
+			controllerValidationService.validateAccountCreateArtistRequest(request);
+			response = accountService.accountCreateArtist(request);
+			controllerValidationService.validateAccountCreateArtistResponse((AccountCreateArtistResponse) response);
 		} catch(UException e) { 
 			response = new GenericErrorResponse(e.getError());
 		} catch(Exception e) {

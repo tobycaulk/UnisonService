@@ -8,4 +8,6 @@ public interface AccountRepository extends MongoRepository<AccountMongoModel, St
 	
 	public AccountMongoModel findByEmail(String email);
 	
+	public AccountMongoModel findByAccountId(String accountId);
+	
 }

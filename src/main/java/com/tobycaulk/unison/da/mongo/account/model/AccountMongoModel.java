@@ -14,14 +14,12 @@ public class AccountMongoModel {
 	@Id
 	private String id;
 	private String accountId;
-	private String aristName;
 	private String email;
 	private String password;
 	private List<AccountSession> sessions = new ArrayList<>();
 	
-	public AccountMongoModel(String accountId, String aristName, String email, String password) {
+	public AccountMongoModel(String accountId, String email, String password) {
 		this.accountId = accountId;
-		this.aristName = aristName;
 		this.email = email;
 		this.password = password;
 	}
@@ -40,14 +38,6 @@ public class AccountMongoModel {
 
 	public void setAccountId(String accountId) {
 		this.accountId = accountId;
-	}
-
-	public String getAristName() {
-		return aristName;
-	}
-
-	public void setAristName(String aristName) {
-		this.aristName = aristName;
 	}
 
 	public String getEmail() {

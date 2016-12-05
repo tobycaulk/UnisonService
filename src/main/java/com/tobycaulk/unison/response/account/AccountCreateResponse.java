@@ -11,30 +11,30 @@ public class AccountCreateResponse extends BaseResponse {
 		INTERNAL_ERROR_WHILE_CREATING_ACCOUNT
 	}
 	
-	@JsonProperty("CreateStatus")
-	private boolean createStatus;
-	
 	@JsonProperty("CreateCode")
 	private AccountCreateResponseCode accountCreateResponseCode;
 	
-	public AccountCreateResponse(boolean createStatus, AccountCreateResponseCode accountCreateResponseCode) {
-		this.createStatus = createStatus;
+	@JsonProperty("AccountId")
+	private String accountId;
+	
+	public AccountCreateResponse(AccountCreateResponseCode accountCreateResponseCode, String accountId) {
 		this.accountCreateResponseCode = accountCreateResponseCode;
+		this.accountId = accountId;
 	}
 	
-	public boolean getCreateStatus() {
-		return createStatus;
-	}
-	
-	public void setCreateStatus(boolean createStatus) {
-		this.createStatus = createStatus;
-	}
-
 	public AccountCreateResponseCode getAccountCreateResponseCode() {
 		return accountCreateResponseCode;
 	}
 
 	public void setAccountCreateResponseCode(AccountCreateResponseCode accountCreateResponseCode) {
 		this.accountCreateResponseCode = accountCreateResponseCode;
+	}
+
+	public String getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
 	}
 }
